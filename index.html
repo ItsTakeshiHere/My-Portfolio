@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    
+    :root {
+      --bg-color: #f4f4f4;
+      --text-color: #333;
+      --header-bg: linear-gradient(135deg, #2c3e50, #3498db);
+      --nav-bg: #fff;
+      --nav-shadow: rgba(0,0,0,0.1);
+      --nav-link-color: #333;
+      --nav-link-hover: #3498db;
+      --section-heading: #2c3e50;
+      --card-bg: #fff;
+      --card-shadow: rgba(0,0,0,0.1);
+      --card-text: #666;
+      --skill-bg: #3498db;
+      --skill-text: white;
+      --form-bg: #fff;
+      --form-border: #ddd;
+      --form-button-bg: #3498db;
+      --form-button-hover: #2c3e50;
+      --footer-bg: #2c3e50;
+      --footer-text: white;
+      --icon-color: white;
+      --icon-hover: #3498db;
+      transition: all 0.5s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1a1a1a;
+      --text-color: #e0e0e0;
+      --header-bg: linear-gradient(135deg, #1c2526, #2a4d69);
+      --nav-bg: #2a2a2a;
+      --nav-shadow: rgba(0,0,0,0.3);
+      --nav-link-color: #e0e0e0;
+      --nav-link-hover: #63b3ed;
+      --section-heading: #e0e0e0;
+      --card-bg: #2a2a2a;
+      --card-shadow: rgba(0,0,0,0.3);
+      --card-text: #b0b0b0;
+      --skill-bg: #63b3ed;
+      --skill-text: #1a1a1a;
+      --form-bg: #2a2a2a;
+      --form-border: #444;
+      --form-button-bg: #63b3ed;
+      --form-button-hover: #1c2526;
+      --footer-bg: #1c2526;
+      --footer-text: #e0e0e0;
+      --icon-color: #e0e0e0;
+      --icon-hover: #63b3ed;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      transition: all 0.5s ease;
+    }
+
+    header {
+      background: var(--header-bg);
+      color: var(--footer-text);
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    nav {
+      background: var(--nav-bg);
+      box-shadow: 0 2px 5px var(--nav-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      padding: 1rem 0;
+    }
+
+    nav ul li {
+      margin: 0 1.5rem;
+      position: relative;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--nav-link-color);
+      font-weight: 500;
+      transition: color 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+
+    nav ul li a:hover {
+      color: var(--nav-link-hover);
+      transform: scale(1.1);
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--nav-link-hover);
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      margin-left: 2rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      color: var(--section-heading);
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .about-content p {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px var(--card-shadow);
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .project-card h3 {
+      padding: 1rem;
+      font-size: 1.5rem;
+      color: var(--section-heading);
+    }
+
+    .project-card p {
+      padding: 0 1rem 1rem;
+      color: var(--card-text);
+    }
+
+    .project-card a {
+      display: inline-block;
+      padding: 0 1rem 1rem;
+      color: var(--nav-link-hover);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .skill {
+      background: var(--skill-bg);
+      color: var(--skill-text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .skill:hover {
+      transform: translateY(-5px);
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--form-bg);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px var(--card-shadow);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--form-border);
+      border-radius: 4px;
+      font-size: 1rem;
+      background: var(--form-bg);
+      color: var(--text-color);
+    }
+
+    .contact-form button {
+      background: var(--form-button-bg);
+      color: var(--skill-text);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: var(--form-button-hover);
+    }
+
+    footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-icons {
+      display: flex;
+      gap: 1.5rem;
+      order: 2;
+    }
+
+    .footer-icons a {
+      color: var(--icon-color);
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-icons a:hover {
+      color: var(--icon-hover);
+    }
+
+    footer p {
+      font-size: 1rem;
+      order: 1;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+      }
+
+      nav ul {
+        flex-direction: column;
+      }
+
+      .about-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-icons {
+        order: 1;
+      }
+
+      footer p {
+        order: 2;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Hi! I'm Rahul Bhagat</h1>
+    <p>Full Stack Developer | UI/UX Designer | Video Editor</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+  </nav>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="about-content">
+      <p>I'm a passionate Full Stack Developer with strong skills in building dynamic, responsive, and user-friendly web applications. With experience in HTML, CSS, JavaScript, React.js, Node.js, and UI/UX Design, I enjoy transforming creative ideas into functional projects. My goal is to write clean, optimized code while ensuring great user experiences. Apart from coding, I also have hands-on experience in video editing and design tools like Figma which helps me bring a complete creative vision to life. I'm always eager to learn new technologies and collaborate on exciting projects that make a real impact.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 1">
+        <h3>Project One</h3>
+        <p>A responsive e-commerce website built with HTML, CSS, and JavaScript.</p>
+        <a href="#">View Project</a>
+      </div>
+      <div class="project-card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 2">
+        <h3>Project Two</h3>
+        <p>A task management app with React and Node.js backend.</p>
+        <a href="#">View Project</a>
+      </div>
+      <div class="project-card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 3">
+        <h3>Project Three</h3>
+        <p>A portfolio website showcasing my design skills.</p>
+        <a href="#">View Project</a>
+      </div>
+      <div class="project-card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 4">
+        <h3>Project Four</h3>
+        <p>A real-time chat application built with React.js and Firebase.</p>
+        <a href="#">View Project</a>
+      </div>
+      <div class="project-card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 5">
+        <h3>Project Five</h3>
+        <p>An AI-powered blog generator using OpenAI API and Next.js.</p>
+        <a href="#">View Project</a>
+      </div>
+      <div class="project-card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 6">
+        <h3>Project Six</h3>
+        <p>A weather dashboard app using HTML, CSS, JavaScript, and OpenWeatherMap API.</p>
+        <a href="#">View Project</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill">HTML</div>
+      <div class="skill">CSS</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">React.js</div>
+      <div class="skill">Node.js</div>
+      <div class="skill">Figma</div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <div class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="button" onclick="submitForm()">Send Message</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025. All rights reserved.</p>
+    <div class="footer-icons">
+      <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.github.com" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.figma.com" target="_blank" aria-label="Figma"><i class="fab fa-figma"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      const toggle = document.querySelector('.theme-toggle');
+      toggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', newTheme);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.body.setAttribute('data-theme', savedTheme);
+      document.querySelector('.theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    });
+
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const sectionId = this.getAttribute('href').substring(1);
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    function submitForm() {
+      const name = document.querySelector('input[type="text"]').value;
+      const email = document.querySelector('input[type="email"]').value;
+      const message = document.querySelector('textarea').value;
+
+      if (name && email && message) {
+        alert('Thank you for your message!');
+        document.querySelector('input[type="text"]').value = '';
+        document.querySelector('input[type="email"]').value = '';
+        document.querySelector('textarea').value = '';
+      } else {
+        alert('Please fill out all fields.');
+      }
+    }
+
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+      section.style.opacity = 0;
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
